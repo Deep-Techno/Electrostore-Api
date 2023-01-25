@@ -41,5 +41,26 @@ const storeProduct = async (req, resp) => {
 }
 
 
+const all_product_details = async (req, resp) => {
+    //    console.log(req.user)
+    const products = await productSchema.find({})
+    resp.status(200).json({ productDetails: products })
 
-module.exports = { storeProduct }
+}
+
+
+const deleteProduct = async (req, resp) => {
+
+    const { id } = req.params
+    console.log(id);
+    const product = await productSchema.findById(id)
+    await product.remove();
+    resp.status(200).json({ msg: "record is deleted" })
+
+
+
+}
+
+
+
+module.exports = { storeProduct, all_product_details, deleteProduct }
