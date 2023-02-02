@@ -45,6 +45,7 @@ const all_product_details = async (req, resp) => {
     //    console.log(req.user)
     const products = await productSchema.find({})
     resp.status(200).json({ productDetails: products })
+  
 
 }
 
