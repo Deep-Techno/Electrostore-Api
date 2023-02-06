@@ -62,6 +62,18 @@ const deleteProduct = async (req, resp) => {
 
 }
 
+const Singleproduct = async (req, resp) => {
+
+    const { id } = req.params
+    console.log(id);
+    const product = await productSchema.findById(id)
+  
+    //resp.status(200).json({ singledata: product })
+    resp.status(200).json([ product ])
 
 
-module.exports = { storeProduct, all_product_details, deleteProduct }
+}
+
+
+
+module.exports = { storeProduct, all_product_details, deleteProduct ,Singleproduct}
