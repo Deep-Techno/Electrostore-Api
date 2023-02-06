@@ -1,6 +1,6 @@
 const express = require('express')
 const { signup, login } = require('../controller/loginAndSignupController')
-const { storeProduct, all_product_details, deleteProduct } = require('../controller/productController')
+const { storeProduct, all_product_details, deleteProduct ,Singleproduct} = require('../controller/productController')
 const multer = require('multer');
 const fs = require('fs');
 const storage = require('../configuration/multer.js')
@@ -14,6 +14,7 @@ router.post('/login', login);
 router.post('/api/product/store-data', upload.single('image'), storeProduct);
 router.get('/api/product/productDetails',all_product_details);
 router.delete('/api/product/deleteproduct/:id', jwtMiddleware, deleteProduct);
+router.get('/api/singleproduct/:id', Singleproduct);
 
 
 module.exports = { router };
