@@ -23,7 +23,8 @@ const signup = async (req, resp) => {
     })
 
     await createuser.save()
-    resp.status(200).json({ user: createuser })
+    const token =  jwt.sign(createuser.email ,JWT_SECRET);
+    resp.status(200).json({ user: createuser ,token})
 
 
 
@@ -32,7 +33,6 @@ const signup = async (req, resp) => {
 let JWT_SECRET=process.env.JWT_SECRET;
 
 const login= async (req,res)=>{
-   
     let user=await userSchema.findOne({email:req.body.email})
     if(!user){
         return res.status(400).json({msg:'user is not found'})
@@ -42,7 +42,7 @@ const login= async (req,res)=>{
     
     if(match){
         const token = jwt.sign({ userdetails:user },JWT_SECRET);
-        return res.status(400).json({msg:'password match', userdata:token})
+        return res.status(200).json({msg:'password match', token})
     }
     else{
         return res.status(400).json({msg:'password does not match'})
@@ -51,7 +51,7 @@ const login= async (req,res)=>{
 
 }
     catch(error){
-        throw error
+        res.status(500).json("server error")
     }
 
 
